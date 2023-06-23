@@ -31,6 +31,40 @@ public class PostDao extends DaoBase{
         return posts;
     }
 
+    public ArrayList<Post> findPostByName(String name) {
+
+        ArrayList<Post> posts = new ArrayList<>();
+
+        String sql = "SELECT p.post_id,p.title,p.content,e.employee_id,e.first_name,e.last_name,p.datetime\n" +
+                "FROM post p\n" +
+                "JOIN employees e ON p.employee_id = e.employee_id\n" +
+                "WHERE p.title LIKE ? OR\n" +
+                "      p.content LIKE ? OR\n" +
+                "      e.first_name LIKE ? OR\n" +
+                "      e.last_name LIKE ? ;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" +name+ "%");
+            stmt.setString( 2, "%" +name+ "%");
+            stmt.setString( 3, "%" +name+ "%");
+            stmt.setString( 4, "%" +name+ "%");
+
+            try(ResultSet rs = stmt.executeQuery()){
+                while (rs.next()) {
+                    Post post = new Post();
+                    fetchPostData(post, rs);
+                    posts.add(post);
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return posts;
+    }
+
+
     public Post getPost(int id) {
 
         Post post = null;
@@ -69,11 +103,13 @@ public class PostDao extends DaoBase{
         post.setEmployeeId(rs.getInt(4));
         post.setDatetime(rs.getTimestamp("datetime"));
 
+
         Employee employee = new Employee();
         employee.setEmployeeId(rs.getInt("e.employee_id"));
         employee.setFirstName(rs.getString("e.first_name"));
         employee.setLastName(rs.getString("e.last_name"));
         post.setEmployee(employee);
+
     }
 
     public void newPost(Post post) {

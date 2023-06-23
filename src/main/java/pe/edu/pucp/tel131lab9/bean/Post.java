@@ -18,6 +18,7 @@ public class Post {
         this.datetime = datetime;
     }
 
+
     public Employee getEmployee() {
         return employee;
     }
@@ -57,4 +58,6 @@ public class Post {
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
+
+
 }
