@@ -40,6 +40,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= p.getTitle()%></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><%= p.getEmployee().getFirstName() + p.getEmployee().getLastName()%></h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= p.getDatetime()%></h6>
                     <p class="card-text"><%= p.getContent()%></p>
                     <a href="<%= request.getContextPath()%>/PostServlet?action=view&id=<%=p.getPostId()%>" class="btn btn-primary">View</a>
                 </div>

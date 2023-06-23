@@ -67,6 +67,7 @@ public class PostDao extends DaoBase{
         post.setTitle(rs.getString(2));
         post.setContent(rs.getString(3));
         post.setEmployeeId(rs.getInt(4));
+        post.setDatetime(rs.getTimestamp("datetime"));
 
         Employee employee = new Employee();
         employee.setEmployeeId(rs.getInt("e.employee_id"));
