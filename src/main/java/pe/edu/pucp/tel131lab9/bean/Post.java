@@ -7,6 +7,7 @@ public class Post {
     private int employeeId;
     private Employee employee;
 
+
     public Employee getEmployee() {
         return employee;
     }
@@ -46,4 +47,6 @@ public class Post {
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
+
+
 }

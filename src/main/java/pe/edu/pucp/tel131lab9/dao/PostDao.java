@@ -102,13 +102,13 @@ public class PostDao extends DaoBase{
         post.setContent(rs.getString(3));
         post.setEmployeeId(rs.getInt(4));
 
+
         Employee employee = new Employee();
         employee.setEmployeeId(rs.getInt("e.employee_id"));
         employee.setFirstName(rs.getString("e.first_name"));
         employee.setLastName(rs.getString("e.last_name"));
         post.setEmployee(employee);
 
-        System.out.println(post.getTitle());
     }
 
 }
