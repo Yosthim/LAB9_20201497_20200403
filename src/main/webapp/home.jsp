@@ -1,8 +1,20 @@
 <%@page import="java.util.ArrayList" %>
 <%@ page import="pe.edu.pucp.tel131lab9.bean.Post" %>
+<%@ page import="pe.edu.pucp.tel131lab9.bean.Employee" %>
 <jsp:useBean id="posts" type="java.util.ArrayList<pe.edu.pucp.tel131lab9.bean.Post>" scope="request"/>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+
 <jsp:useBean id="textoBusqueda" scope="request" type="java.lang.String" class="java.lang.String"/>
+
+
+<%
+    Employee userSession = new Employee();
+    if (session.getAttribute("userSession") != null) {
+        userSession = (Employee) session.getAttribute("userSession");
+    }else {
+        userSession = null;
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -21,9 +33,11 @@
         <div class="col-md-7">
             <h1>Home</h1>
         </div>
-        <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
-            <a href="<%= request.getContextPath()%>/PostServlet?action=new" class="btn btn-primary">New Post</a>
-        </div>
+        <% if (userSession != null) {%>
+            <div class="col-md-5 col-lg-4 ms-auto my-auto text-md-end">
+                <a href="<%= request.getContextPath()%>/PostServlet?action=new" class="btn btn-primary">New Post</a>
+            </div>
+        <% } %>
     </div>
 
     <form method="post" action="<%=request.getContextPath()%>/HomeServlet?action=buscar">
