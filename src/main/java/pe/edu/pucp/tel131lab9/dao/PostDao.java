@@ -75,4 +75,22 @@ public class PostDao extends DaoBase{
         post.setEmployee(employee);
     }
 
+    public void newPost(Post post) {
+        String sql = "INSERT INTO post (title, content, employee_id, datetime) " +
+                "VALUES (?,?,?,?)";
+        try(Connection connection = this.getConnection();
+            PreparedStatement psmt = connection.prepareStatement(sql)) {
+
+            psmt.setString(1, post.getTitle());
+            psmt.setString(2, post.getContent());
+            psmt.setInt(3, post.getEmployeeId());
+            psmt.setTimestamp(4, post.getDatetime());
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

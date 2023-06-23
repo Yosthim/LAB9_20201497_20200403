@@ -14,7 +14,7 @@ public abstract class DaoBase {
         }
 
         String username = "root";
-        String password = "root";
+        String password = "123456";
         String database = "hr";
         String url = "jdbc:mysql://localhost:3306/" + database;
 
